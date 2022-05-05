@@ -9,4 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 public interface CreditCardService {
     ResponseEntity<BaseResponse> registerUserDetail(RegisterDetailRequest registerDetailRequest);
+
+      ResponseEntity<BaseResponse> loginUser(int registerId, String registerPassword, RegisterDetailRequest registerDetailRequest);//
 }

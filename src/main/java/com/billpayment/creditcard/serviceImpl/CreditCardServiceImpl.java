@@ -49,4 +49,9 @@ public class CreditCardServiceImpl implements CreditCardService {
         return new ResponseEntity<>(baseResponse,HttpStatus.OK);
 
     }
+
+    @Override
+    public ResponseEntity<BaseResponse> loginUser(int registerId, String registerPassword, RegisterDetailRequest registerDetailRequest) {
+        return null;
+    }
 }
