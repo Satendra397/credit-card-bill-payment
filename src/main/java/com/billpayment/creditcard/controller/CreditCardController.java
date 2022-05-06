@@ -2,6 +2,7 @@ package com.billpayment.creditcard.controller;
 
 import com.billpayment.creditcard.dto.BaseResponse;
 import com.billpayment.creditcard.dto.RegisterDetailRequest;
+import com.billpayment.creditcard.dto.UserDetailRequest;
 import com.billpayment.creditcard.service.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,8 +26,8 @@ public class CreditCardController {
 
 
     @PostMapping("register-user-detail")
-    public ResponseEntity<BaseResponse> registerUserDetail(@RequestBody RegisterDetailRequest registerDetailRequest) {
-        if (registerDetailRequest == null || registerDetailRequest.getRegisterMobileNo().isEmpty()) {
+    public ResponseEntity<BaseResponse> registerUserDetail(@RequestBody UserDetailRequest userDetailRequest) {
+        if(userDetailRequest == null || userDetailRequest.getMobileNo().isEmpty()) {
             BaseResponse baseResponse = new BaseResponse();
             baseResponse.setMessage("registration detail can not be empty");
             baseResponse.setHttpStatus(HttpStatus.BAD_REQUEST);
@@ -34,7 +35,7 @@ public class CreditCardController {
 
             return new ResponseEntity<>(baseResponse, HttpStatus.BAD_REQUEST);
         }
-        return creditCardService.registerUserDetail(registerDetailRequest);
+        return creditCardService.userDetailRequest(userDetailRequest);
     }
 
     /*
@@ -42,10 +43,10 @@ public class CreditCardController {
     *
     * */
 
-    @PostMapping("login-user/{registerId}/{registerPassword}")
-    public ResponseEntity<BaseResponse> loginUser(@PathVariable int registerId,@PathVariable String registerPassword,@RequestBody RegisterDetailRequest registerDetailRequest)
+    @PostMapping("user-login")
+    public ResponseEntity<BaseResponse> loginUser(  @RequestBody UserDetailRequest userDetailRequest)
     {
-        if (registerId==0&&registerPassword==null)
+        if (userDetailRequest==null)
         {
             BaseResponse baseResponse = new BaseResponse();
             baseResponse.setMessage("please enter valid credentials");
@@ -54,6 +55,6 @@ public class CreditCardController {
 
             return new ResponseEntity<>(baseResponse,HttpStatus.BAD_REQUEST);
         }
-        return creditCardService.loginUser(registerId,registerPassword,registerDetailRequest);
+        return creditCardService.loginUser(userDetailRequest);
     }
 }
