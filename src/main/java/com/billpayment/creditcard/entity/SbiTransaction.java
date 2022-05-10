@@ -1,6 +1,5 @@
 package com.billpayment.creditcard.entity;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,12 +14,13 @@ import java.util.Date;
 @Setter
 @ToString
 @Entity
-public class Transaction {
+public class SbiTransaction {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int transactionId;
-    private Date transactionDate;
-    private int transactionAmount;
+    private int sbiTransactionId;
+    private Date sbiTransactionDate;
+    private int sbiTransactionAmount;
 
 }

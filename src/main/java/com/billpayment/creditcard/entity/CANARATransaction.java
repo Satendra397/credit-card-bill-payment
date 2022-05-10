@@ -8,21 +8,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Getter
 @Setter
 @ToString
 @Entity
-public class Register {
+public class CANARATransaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int registerId;
-    private String registerName;
-    private String registerMobileNo;
-    private String registerEmail;
-    private String registerPassword;
-
-
-
+    private int cnrTransactionId;
+    private Date cnrTransactionDate;
+    private int cnrTransactionAmount;
 }
