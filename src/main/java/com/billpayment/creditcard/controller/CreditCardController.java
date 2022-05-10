@@ -1,15 +1,16 @@
 package com.billpayment.creditcard.controller;
 
-import com.billpayment.creditcard.dto.BaseResponse;
-import com.billpayment.creditcard.dto.RegisterDetailRequest;
-import com.billpayment.creditcard.dto.UserDetailRequest;
+import com.billpayment.creditcard.dto.*;
 import com.billpayment.creditcard.service.CreditCardService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Slf4j
+@CrossOrigin(origins = "*")
 public class CreditCardController {
 
     @Autowired
@@ -61,7 +62,7 @@ public class CreditCardController {
     * */
 
     @GetMapping("fetch-creditCard-detail/{creditCardId}")
-    public ResponseEntity<BaseResponse> fetchCreditCardDetail(@PathVariable int creditCardId)
+    public ResponseEntity<BaseResponse> fetchCreditCardDetail( @PathVariable int creditCardId)
     {
         if (creditCardId==0)
         {
@@ -74,5 +75,10 @@ public class CreditCardController {
         }
         return creditCardService.fetchCreditCardDetail(creditCardId);
     }
+    /*
+    * fetch transaction detail
+    * */
+
+
 
 }

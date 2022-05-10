@@ -1,9 +1,7 @@
 package com.billpayment.creditcard.service;
 
 
-import com.billpayment.creditcard.dto.BaseResponse;
-import com.billpayment.creditcard.dto.RegisterDetailRequest;
-import com.billpayment.creditcard.dto.UserDetailRequest;
+import com.billpayment.creditcard.dto.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -13,5 +11,8 @@ public interface CreditCardService {
 
       ResponseEntity<BaseResponse> loginUser( UserDetailRequest userDetailRequest);//
 
-    ResponseEntity<BaseResponse> fetchCreditCardDetail(int creditCardId);
+    ResponseEntity<BaseResponse> fetchCreditCardDetail(  int creditCardId);//etch transaction detail
+
+
+
 }
