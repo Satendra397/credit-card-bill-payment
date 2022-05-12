@@ -61,24 +61,56 @@ public class CreditCardController {
     *
     * */
 
-    @GetMapping("fetch-creditCard-detail/{creditCardId}")
-    public ResponseEntity<BaseResponse> fetchCreditCardDetail( @PathVariable int creditCardId)
+    @GetMapping("fetch-transaction-detail/{transactionId}")
+    public ResponseEntity<BaseResponse> fetchTransactionDetail( @PathVariable int transactionId)
     {
-        if (creditCardId==0)
+        if (transactionId==0 || String.valueOf(transactionId) == null)
         {
             BaseResponse baseResponse=new BaseResponse();
-            baseResponse.setMessage("credit card id can not null");
+            baseResponse.setMessage("credit card id can not empty or  null");
             baseResponse.setHttpStatus(HttpStatus.BAD_REQUEST);
-            baseResponse.setHttpStatusCode(HttpStatus.OK.value());
+            baseResponse.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
 
             return new ResponseEntity<>(baseResponse,HttpStatus.BAD_REQUEST);
         }
-        return creditCardService.fetchCreditCardDetail(creditCardId);
+        return creditCardService.fetchTransactionDetail(transactionId);
     }
-    /*
-    * fetch transaction detail
-    * */
+
+    @PostMapping("payment-details")
+    public ResponseEntity<BaseResponse> fetchPaymentDetail(@RequestBody PaymentRequest paymentRequest)
+    {
+        if (paymentRequest.getPaymentAmount() ==0 || paymentRequest.getPaymentType() == null)
+        {
+            BaseResponse baseResponse=new BaseResponse();
+            baseResponse.setMessage("Payment detail can not be empty");
+            baseResponse.setHttpStatus(HttpStatus.BAD_REQUEST);
+            baseResponse.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
+
+            return new ResponseEntity<>(baseResponse,HttpStatus.BAD_REQUEST);
+        }
+        return creditCardService.fetchPaymentDetails(paymentRequest);
+    }
 
 
+    @PostMapping("full-payment")
+    public ResponseEntity<BaseResponse> fullPayment(@RequestBody PayFullRequest payFullRequest)
+    {
+        if (payFullRequest.getPaymentAmount()==0||payFullRequest.getPaymentType()==null)
+        {
+            BaseResponse baseResponse=new BaseResponse();
+            baseResponse.setMessage("payment detail can not be empty");
+            baseResponse.setHttpStatus(HttpStatus.BAD_REQUEST);
+            baseResponse.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
+            return new ResponseEntity<>(baseResponse,HttpStatus.BAD_REQUEST);
+        }
+        return creditCardService.payFull(payFullRequest);
+    }
+
+  /*  @PostMapping("save-creditCard-details")
+    public boolean saveCreditCardPic(@ModelAttribute CreditCardPic creditCardPic)
+    {
+        return creditCardService.saveCreditCardPic(creditCardPic);
+    }
+*/
 
 }

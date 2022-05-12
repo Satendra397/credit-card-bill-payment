@@ -1,20 +1,19 @@
 package com.billpayment.creditcard.dto;
 
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
-public class HdfcTransactionResponse {
+public class PayFullRequest {
 
-    private int hdfcTransactionId;
+    private int creditCardId;
+    private String paymentType;
+    private int paymentAmount;
 
-    private Date hdfcTransactionDate;
-    private int hdfcTransactionAmount;
 }
