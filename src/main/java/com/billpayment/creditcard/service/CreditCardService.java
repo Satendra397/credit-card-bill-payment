@@ -11,12 +11,14 @@ public interface CreditCardService {
 
       ResponseEntity<BaseResponse> loginUser( UserDetailRequest userDetailRequest);//
 
-    ResponseEntity<BaseResponse> fetchTransactionDetail(  int transactionId);//etch transaction detail
+    ResponseEntity<BaseResponse> fetchTransactionDetail(  int creditCardId);//etch transaction detail
 
 
     ResponseEntity<BaseResponse> fetchPaymentDetails(PaymentRequest paymentRequest);//
 
     ResponseEntity<BaseResponse> payFull(PayFullRequest payFullRequest);//
 
-   // boolean saveCreditCardPic(CreditCardPic creditCardPic);
+    ResponseEntity<BaseResponse> fetchCreditCard(int userId);//
+
+    // boolean saveCreditCardPic(CreditCardPic creditCardPic);
 }
