@@ -77,40 +77,34 @@ public class CreditCardServiceImpl implements CreditCardService {
     }
 
         @Override
-    public ResponseEntity<BaseResponse> fetchTransactionDetail( int transactionId) {
+    public ResponseEntity<BaseResponse> fetchTransactionDetail( int creditCardId) {
+
+
 
             BaseResponse baseResponse = new BaseResponse();
 
 
-            List<Transaction> transactionList = Collections.singletonList(transactionDAO.findDetailsByTransactionId(transactionId));
+            List<Transaction> transactionList = transactionDAO.findDetailsByCreditCardId(creditCardId);
 
-            TransactionDetailRequest transactionDetailRequest = new TransactionDetailRequest();
+            TransactionListResponse transactionListResponse = new TransactionListResponse();
 
-            List<CreditCardDetail> creditCardDetails = new ArrayList<>();
-            for(Transaction transactionHistory:transactionList){
-                CreditCardDetail creditCardDetail = new CreditCardDetail();
-                //creditCardDetail.setCreditCardId(transactionHistory.getTransactionId());
-                //creditCardDetail.setCreditCardBalance(transactionHistory.getTransactionAmount());
-                //*creditCardDetail.setCreditCardLimit(transactionHistory.getTransactionAmount());
-                creditCardDetail.setCreditCardExpense(transactionHistory.getTransactionAmount());
-                transactionDetailRequest.setTransactionId(transactionHistory.getTransactionId());
-                transactionDetailRequest.setTransactionDate(transactionHistory.getTransactionDate());
-                transactionDetailRequest.setTransactionAmount(transactionHistory.getTransactionAmount());
+            List<TransactionResponse> transactionResponseList = new ArrayList<>();
+            for (Transaction transactionHistory : transactionList) {
+                TransactionResponse transactionResponse = new TransactionResponse();
+                transactionResponse.setTransactionId(transactionHistory.getTransactionId());
+                transactionResponse.setTransactionAmount(transactionHistory.getTransactionAmount());
+                transactionResponse.setTransactionDate(transactionHistory.getTransactionDate());
 
-                creditCardDetails.add(creditCardDetail);
-
+                transactionResponseList.add(transactionResponse);
             }
-
-            transactionDetailRequest.setCreditCardDetails(creditCardDetails);
+            transactionListResponse.setTransactionResponse(transactionResponseList);
 
             baseResponse.setMessage("Transaction data found successfully");
+
             baseResponse.setHttpStatusCode(HttpStatus.OK.value());
             baseResponse.setHttpStatus(HttpStatus.OK);
-            baseResponse.setResponse(transactionDetailRequest);
+            baseResponse.setResponse(transactionListResponse);
             return new ResponseEntity<>(baseResponse, HttpStatus.OK);
-
-
-
     }
 
     @Override
@@ -186,6 +180,32 @@ public class CreditCardServiceImpl implements CreditCardService {
         return new ResponseEntity<>(baseResponse, HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<BaseResponse> fetchCreditCard(int userId) {
+
+        BaseResponse baseResponse = new BaseResponse();
+
+        List<CreditCard> creditCardList = creditCardDAO.findDetailsByUserID(userId);
+
+        CreditCardListResponse creditCardListResponse = new CreditCardListResponse();
+
+        List<CreditCardResponse> creditCardResponseList = new ArrayList<>();
+        for(CreditCard list:creditCardList){
+
+            CreditCardResponse creditCardResponse = new CreditCardResponse();
+            creditCardResponse.setCreditCardName(list.getCreditCardName());
+            creditCardResponse.setCreditCardId(list.getCreditCardId());
+            creditCardResponseList.add(creditCardResponse);
+        }
+        creditCardListResponse.setCreditCardResponse(creditCardResponseList);
+        baseResponse.setMessage("Credit cards found successfully");
+        baseResponse.setHttpStatusCode(HttpStatus.OK.value());
+        baseResponse.setHttpStatus(HttpStatus.OK);
+        baseResponse.setResponse(creditCardListResponse);
+        return new ResponseEntity<>(baseResponse, HttpStatus.OK);
+
+    }
+
    /* @Override
     public boolean saveCreditCardPic(CreditCardPic creditCardPic) {
         String fileName= StringUtils.cleanPath(creditCardPic.getCreditCardPic().getOriginalFilename());
@@ -201,6 +221,7 @@ public class CreditCardServiceImpl implements CreditCardService {
         return true;
 
     }*/
+
 
 
 }

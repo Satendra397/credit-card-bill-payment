@@ -18,7 +18,8 @@ public class CreditCardController {
 
 
     /*
-    * post mapping for register user detail
+    * post mapping for new user registration
+    * user register here all the detail(name ,email,mobile,password)
     *
     * */
 
@@ -37,7 +38,8 @@ public class CreditCardController {
     }
 
     /*
-    * post mapping for login user
+    post mapping for log-in
+    * register user login after enter valid emailId and password
     *
     * */
 
@@ -57,14 +59,17 @@ public class CreditCardController {
     }
 
     /*
-    * Get mapping for fetching credit card detail
+    * Get mapping for transaction-history of user
+    *
+    *  user see all the transaction history and payment detail
+    *
     *
     * */
 
-    @GetMapping("fetch-transaction-detail/{transactionId}")
-    public ResponseEntity<BaseResponse> fetchTransactionDetail( @PathVariable int transactionId)
+    @GetMapping("fetch-transaction-detail/{creditCardId}")
+    public ResponseEntity<BaseResponse> fetchTransactionDetail( @PathVariable int creditCardId)
     {
-        if (transactionId==0 || String.valueOf(transactionId) == null)
+        if (creditCardId==0 || String.valueOf(creditCardId) == null)
         {
             BaseResponse baseResponse=new BaseResponse();
             baseResponse.setMessage("credit card id can not empty or  null");
@@ -73,8 +78,14 @@ public class CreditCardController {
 
             return new ResponseEntity<>(baseResponse,HttpStatus.BAD_REQUEST);
         }
-        return creditCardService.fetchTransactionDetail(transactionId);
+        return creditCardService.fetchTransactionDetail(creditCardId);
     }
+
+    /*
+    * post mapping
+    * for pay the credit card bill
+    * all payment thing like balance are updating in the user account
+    * */
 
     @PostMapping("payment-details")
     public ResponseEntity<BaseResponse> fetchPaymentDetail(@RequestBody PaymentRequest paymentRequest)
@@ -112,5 +123,26 @@ public class CreditCardController {
         return creditCardService.saveCreditCardPic(creditCardPic);
     }
 */
+
+    /*
+    * get mapping for fetch credit card using user id
+    * here user see list of credit card user have
+
+    * */
+
+    @GetMapping("fetch-creditCards/{userId}")
+    public ResponseEntity<BaseResponse> fetchCreditCards(@PathVariable int userId)
+    {
+        if (userId==0 || String.valueOf(userId) == null)
+        {
+            BaseResponse baseResponse=new BaseResponse();
+            baseResponse.setMessage("Transaction id cannot be null");
+            baseResponse.setHttpStatus(HttpStatus.BAD_REQUEST);
+            baseResponse.setHttpStatusCode(HttpStatus.OK.value());
+
+            return new ResponseEntity<>(baseResponse,HttpStatus.BAD_REQUEST);
+        }
+        return creditCardService.fetchCreditCard(userId);
+    }
 
 }
