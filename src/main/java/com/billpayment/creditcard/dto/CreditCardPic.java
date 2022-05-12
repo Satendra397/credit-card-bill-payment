@@ -1,25 +1,18 @@
 package com.billpayment.creditcard.dto;
 
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
-public class CreditCardDetail {
+public class CreditCardPic {
 
     private int creditCardId;
     private String creditCardName;
-    private int creditCardBalance;
-    private int creditCardLimit;
-    private int creditCardExpense;
-
-
-
+    private MultipartFile creditCardPic;
 }

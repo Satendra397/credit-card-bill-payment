@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Getter
@@ -22,5 +19,9 @@ public class Transaction {
     private int transactionId;
     private Date transactionDate;
     private int transactionAmount;
+
+
+    @Column(name="credit_card_id")
+    private int creditCardId;
 
 }

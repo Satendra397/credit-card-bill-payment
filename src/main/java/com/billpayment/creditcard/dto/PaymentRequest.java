@@ -6,14 +6,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
-public class CANARATransactionResponse {
-    private int cnrTransactionId;
-    private Date cnrTransactionDate;
-    private int cnrTransactionAmount;
+public class PaymentRequest {
+
+    private int creditCardId;
+    private String paymentType;
+    private int paymentAmount;
 }
